@@ -19,7 +19,16 @@ export default class App extends React.component {
           task: 'Do Laundry'
         }
       ]
-    }
+    };
   }
+  render() {
+    const {notes} = this.state;
 
+    return (
+      <div>
+        <button onClick={() => console.log('add notes')}>+</button>
+        <Notes notes={notes} />
+      </div>
+    );
+  }
 }
