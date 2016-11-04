@@ -3,7 +3,7 @@ import uuid from 'uuid';
 import Notes from './Notes';
 
 
-export default class App extends React.component {
+export default class App extends React.Component {
 
   constructor(props) {
     super(props);
@@ -21,14 +21,41 @@ export default class App extends React.component {
       ]
     };
   }
+
   render() {
     const {notes} = this.state;
 
     return (
       <div>
-        <button onClick={() => console.log('add notes')}>+</button>
-        <Notes notes={notes} />
+        <button onClick={ this.addNote }>+</button>
+        <Notes notes={notes} onDelete={this.deleteNote} />
       </div>
     );
   }
+
+  addNote = () => {
+    this.setState({
+      notes: this.state.notes.concat([{
+        id: uuid.v4(),
+        task: 'New Task'
+        }])
+    });
+  }
+
+  deleteNote = (id, e) => {
+    e.stopPropagation();
+
+    this.setState({
+      notes: this.state.notes.filter(note => note.id !== id)
+    });
+  }
+
+  editNote = (id, e) => {
+    e.stopPropagation();
+    
+  }
+
 }
+
+
+
